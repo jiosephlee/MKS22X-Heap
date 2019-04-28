@@ -4,6 +4,8 @@ public class MyHeap{
     //We discussed these 2 methods already:
     public static void main(String[] args) {
         int[] test = new int[]{0,2,5};
+        pushDown(test,test.length,0);
+        /*
         System.out.println((int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2))));
         System.out.println(test.length - (1 + (int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
         //heapify(test);
@@ -14,7 +16,11 @@ public class MyHeap{
         System.out.println((int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2))));
         System.out.println(test.length - (1 + (int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
         //heapsort(test);
-        //System.out.println(Arrays.toString(test));
+        */
+        System.out.println(Arrays.toString(test));
+        test = new int[]{0,2,5,6,8,12};
+        pushDown(test,test.length,0);
+        heapPrint(test);
     }
     private static void heapPrint(int[] data){
         int count = 1;
@@ -28,43 +34,52 @@ public class MyHeap{
         }
     }
     private static void pushDown(int[]data,int size,int index){
-        for( int i = index; (i * 2) + 1 < size; i = (i * 2) + 1){
+        for( int i = index; (i * 2) + 1 < size;){
+            heapPrint(data);
+            System.out.println();
             if(!((i * 2) + 2 < size)){
                 if (data[i] < data[(i * 2) + 1]){
                     int hold = data[(i * 2) + 1];
                     data[(i * 2) + 1] = data[i];
                     data[i] = hold;
+                    i = (i * 2) + 1;
                 }
-            } else if (data[(i * 2) + 1] < data[(i * 2) + 2] && data[i] < data[(i * 2) + 2]){
+            }
+            else if (data[(i * 2) + 1] < data[(i * 2) + 2] && data[i] < data[(i * 2) + 2]){
                 int hold = data[(i * 2) + 2];
                 data[(i * 2) + 2] = data[i];
                 data[i] = hold;
+                i = (i * 2) + 2;
             } else{
                 if(data[i] < data[(i * 2) + 1]){
                     int hold = data[(i * 2) + 1];
                     data[(i * 2) + 1] = data[i];
                     data[i] = hold;
+                    i = (i * 2) + 1;
                 }
             }
         }
     }
 
     private static void BpushDown(int[]data,int size,int index){
-        for( int i = index; (i * 2) + 1 < size; i = (i * 2) + 1){
+        for( int i = index; (i * 2) + 1 < size;){
             if(!((i * 2) + 2 < size)){
                 if (data[i] < data[(i * 2) + 1]){
                     int hold = data[(i * 2) + 1];
                     data[(i * 2) + 1] = data[i];
                     data[i] = hold;
+                    i = (i * 2) + 1;
                 }
             } else if (data[(i * 2) + 1] < data[(i * 2) + 2]){
                 int hold = data[(i * 2) + 2];
                 data[(i * 2) + 2] = data[i];
                 data[i] = hold;
+                i = (i * 2) + 2;
             } else{
                 int hold = data[(i * 2) + 1];
                 data[(i * 2) + 1] = data[i];
                 data[i] = hold;
+                i = (i * 2) + 1;
             }
         }
     }
