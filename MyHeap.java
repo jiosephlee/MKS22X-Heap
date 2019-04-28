@@ -3,18 +3,18 @@ import java.io.*;
 public class MyHeap{
     //We discussed these 2 methods already:
     public static void main(String[] args) {
-        int[] test = new int[]{1,5,7,8,1,5,9,12,125,7554,234,-1,4,0,2,5};
-        System.out.println((Math.log(test.length)/Math.log(2))+1);
-        //System.out.println(Math.pow(2,((int)(Math.log(test.length)/Math.log(2))))/2);
+        int[] test = new int[]{0,2,5};
+        System.out.println((int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2))));
+        System.out.println(test.length - (1 + (int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
         //heapify(test);
-        heapPrint(test);
-        test = new int[]{1,5,7,8,1,5,9,12,125,7554,234,-1,4,0,2};
-                System.out.println((int)(Math.log(test.length)/Math.log(2))+1);
-        test = new int[]{1,5,7,8,1,5,9,12,125,7554,234,-1,4,0,2,5,1};
-                System.out.println((int)(Math.log(test.length)/Math.log(2))+1);
-
+        //heapPrint(test);
+        test = new int[]{4,0};
+        System.out.println(test.length - (1 + (int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
+        test = new int[]{2,5,1,1};
+        System.out.println((int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2))));
+        System.out.println(test.length - (1 + (int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
         //heapsort(test);
-        System.out.println(Arrays.toString(test));
+        //System.out.println(Arrays.toString(test));
     }
     private static void heapPrint(int[] data){
         int count = 1;
@@ -87,7 +87,7 @@ public class MyHeap{
 
 //We will discuss this today:
     public static void heapify(int[] yo){
-        for(int i = 0; i < Math.pow(2,((int)(Math.log(yo.length)/Math.log(2))))/2 - 1; i++){
+        for(int i = yo.length - (1 + (int)Math.pow(2,(int)(Math.log(yo.length)/Math.log(2)))); i > -1; i--){
             pushDown(yo, yo.length, i);
             System.out.println("XD");
         }
