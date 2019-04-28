@@ -26,7 +26,9 @@ public class MyHeap{
 
 //We will discuss this today:
     public static void heapify(int[]){
-
+        for(int i = 0; i < int.size; i++){
+            pushDown(int, int.size, i);
+        }
     }
     - convert the array into a valid heap. [ should be O(n) ]
 
