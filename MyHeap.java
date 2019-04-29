@@ -76,11 +76,13 @@ public class MyHeap{
 //We will discuss this today:
     public static void heapify(int[] yo){
         //algorithm to find the last non-leaf
+        /*
         int secondLayer = (int)(Math.pow(2,(int)(Math.log(yo.length)/Math.log(2))))/2; //secondLayer is the number of leaves on the second to last layer
         int lastleaves = yo.length - ((int)(Math.pow(2,(int)(Math.log(yo.length)/Math.log(2))))-1); //lastleaves is the number of leaves on the last layer
         int lastNonLeaf = secondLayer - (int)((lastleaves+1)/2) + (lastleaves) - 1; //secondLayer - (int)((lastleaves+1)/2) sees how many leaves are in the 2ndtolast layer
+        */
         //System.out.println("b value" + b);
-        for(int i = lastNonLeaf; i > -1; i--){
+        for(int i = (((yo.length-1) - 1)/2); i > -1; i--){
             pushDown(yo, yo.length, i);
             //System.out.println("XD");
         }
