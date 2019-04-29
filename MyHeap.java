@@ -39,53 +39,23 @@ public class MyHeap{
         for( int i = index; (i * 2) + 1 < size;){
             //heapPrint(data);
             //System.out.println();
-            if(!((i * 2) + 2 < size) && data[i] < data[(i * 2) + 1]){
-                int hold = data[(i * 2) + 1];
-                data[(i * 2) + 1] = data[i];
-                data[i] = hold;
-                i = (i * 2) + 1;
-            }
-            else if ((i * 2) + 2 < size && data[(i * 2) + 1] < data[(i * 2) + 2] && data[i] < data[(i * 2) + 2]){
+            if ((i * 2) + 2 < size && data[i] < data[(i * 2) + 2] && data[(i * 2) + 1] < data[(i * 2) + 2]){//check if right leaf is legal, bigger than parent, and bigger than left leaf
                 int hold = data[(i * 2) + 2];
                 data[(i * 2) + 2] = data[i];
                 data[i] = hold;
                 i = (i * 2) + 2;
-            } else{
-                if(data[i] < data[(i * 2) + 1]){
+            } else{ //go to left leaf cuz right leaf doesn't exist, or isn't bigger than left leaf
+                if(data[i] < data[(i * 2) + 1]){ //if left leaf is bigger than parent
                     int hold = data[(i * 2) + 1];
                     data[(i * 2) + 1] = data[i];
                     data[i] = hold;
                     i = (i * 2) + 1;
                 } else{
-                    i++;
+                    return;
                 }
             }
         }
     }
-
-    private static void BpushDown(int[]data,int size,int index){
-        for( int i = index; (i * 2) + 1 < size;){
-            //heapPrint(data);
-            //System.out.println();
-            if(!((i * 2) + 2 < size)){
-                int hold = data[(i * 2) + 1];
-                data[(i * 2) + 1] = data[i];
-                data[i] = hold;
-                i = (i * 2) + 1;
-            }
-            else if ((i * 2) + 2 < size && data[(i * 2) + 1] < data[(i * 2) + 2]){
-                int hold = data[(i * 2) + 2];
-                data[(i * 2) + 2] = data[i];
-                data[i] = hold;
-                i = (i * 2) + 2;
-            } else{
-                int hold = data[(i * 2) + 1];
-                data[(i * 2) + 1] = data[i];
-                data[i] = hold;
-                i = (i * 2) + 1;
-                }
-            }
-        }
     /*
      - size  is the number of elements in the data array.
      - push the element at index i downward into the correct position. This will swap with the larger of the child nodes provided thatchild is larger. This stops when a leaf is reached, or neither child is larger. [ should be O(logn) ]
@@ -105,11 +75,12 @@ public class MyHeap{
 
 //We will discuss this today:
     public static void heapify(int[] yo){
-        int A = (int)(Math.pow(2,(int)(Math.log(yo.length)/Math.log(2))));
-        int a = (int)(Math.pow(2,(int)(Math.log(yo.length)/Math.log(2))))-1;
-        int b = A/2 - (int)(((yo.length-a)+1)/2) + (yo.length-a);
+        //algorithm to find the last non-leaf
+        int secondLayer = (int)(Math.pow(2,(int)(Math.log(yo.length)/Math.log(2))))/2; //secondLayer is the number of leaves on the second to last layer
+        int lastleaves = yo.length - ((int)(Math.pow(2,(int)(Math.log(yo.length)/Math.log(2))))-1); //lastleaves is the number of leaves on the last layer
+        int lastNonLeaf = secondLayer - (int)((lastleaves+1)/2) + (lastleaves) - 1; //secondLayer - (int)((lastleaves+1)/2) sees how many leaves are in the 2ndtolast layer
         //System.out.println("b value" + b);
-        for(int i = b-1; i > -1; i--){
+        for(int i = lastNonLeaf; i > -1; i--){
             pushDown(yo, yo.length, i);
             //System.out.println("XD");
         }
