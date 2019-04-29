@@ -3,23 +3,24 @@ import java.io.*;
 public class MyHeap{
     //We discussed these 2 methods already:
     public static void main(String[] args) {
-        int[] test = new int[]{0,2,5};
-        pushDown(test,test.length,0);
-        /*
-        System.out.println((int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2))));
-        System.out.println(test.length - (1 + (int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
+        int[] test = new int[]{0,2,5,1,8,3,5,3,9,1,2,8567,3};
+        //pushDown(test,test.length,0);
+
+        //System.out.println((int)(Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
+        //System.out.println(test.length - (1 + (int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
         //heapify(test);
-        //heapPrint(test);
-        test = new int[]{4,0};
-        System.out.println(test.length - (1 + (int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
-        test = new int[]{2,5,1,1};
-        System.out.println((int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2))));
-        System.out.println(test.length - (1 + (int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
-        //heapsort(test);
-        */
+        heapPrint(test);
+        //test = new int[]{4,0};
+        //System.out.println(test.length - (1 + (int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
+        //test = new int[]{2,5,1,1};
+        //System.out.println((int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2))));
+        //System.out.println(test.length - (1 + (int)Math.pow(2,(int)(Math.log(test.length)/Math.log(2)))));
+        heapsort(test);
+
+
         System.out.println(Arrays.toString(test));
-        test = new int[]{0,2,5,6,8,12};
-        pushDown(test,test.length,0);
+        //test = new int[]{0,2,5,6,8,12};
+        //pushDown(test,test.length,0);
         heapPrint(test);
     }
     private static void heapPrint(int[] data){
@@ -32,20 +33,19 @@ public class MyHeap{
             }
             System.out.print(data[j] + " ");
         }
+        System.out.println();
     }
     private static void pushDown(int[]data,int size,int index){
         for( int i = index; (i * 2) + 1 < size;){
-            heapPrint(data);
-            System.out.println();
-            if(!((i * 2) + 2 < size)){
-                if (data[i] < data[(i * 2) + 1]){
-                    int hold = data[(i * 2) + 1];
-                    data[(i * 2) + 1] = data[i];
-                    data[i] = hold;
-                    i = (i * 2) + 1;
-                }
+            //heapPrint(data);
+            //System.out.println();
+            if(!((i * 2) + 2 < size) && data[i] < data[(i * 2) + 1]){
+                int hold = data[(i * 2) + 1];
+                data[(i * 2) + 1] = data[i];
+                data[i] = hold;
+                i = (i * 2) + 1;
             }
-            else if (data[(i * 2) + 1] < data[(i * 2) + 2] && data[i] < data[(i * 2) + 2]){
+            else if ((i * 2) + 2 < size && data[(i * 2) + 1] < data[(i * 2) + 2] && data[i] < data[(i * 2) + 2]){
                 int hold = data[(i * 2) + 2];
                 data[(i * 2) + 2] = data[i];
                 data[i] = hold;
@@ -56,6 +56,8 @@ public class MyHeap{
                     data[(i * 2) + 1] = data[i];
                     data[i] = hold;
                     i = (i * 2) + 1;
+                } else{
+                    i++;
                 }
             }
         }
@@ -63,14 +65,15 @@ public class MyHeap{
 
     private static void BpushDown(int[]data,int size,int index){
         for( int i = index; (i * 2) + 1 < size;){
+            //heapPrint(data);
+            //System.out.println();
             if(!((i * 2) + 2 < size)){
-                if (data[i] < data[(i * 2) + 1]){
-                    int hold = data[(i * 2) + 1];
-                    data[(i * 2) + 1] = data[i];
-                    data[i] = hold;
-                    i = (i * 2) + 1;
-                }
-            } else if (data[(i * 2) + 1] < data[(i * 2) + 2]){
+                int hold = data[(i * 2) + 1];
+                data[(i * 2) + 1] = data[i];
+                data[i] = hold;
+                i = (i * 2) + 1;
+            }
+            else if ((i * 2) + 2 < size && data[(i * 2) + 1] < data[(i * 2) + 2]){
                 int hold = data[(i * 2) + 2];
                 data[(i * 2) + 2] = data[i];
                 data[i] = hold;
@@ -80,9 +83,9 @@ public class MyHeap{
                 data[(i * 2) + 1] = data[i];
                 data[i] = hold;
                 i = (i * 2) + 1;
+                }
             }
         }
-    }
     /*
      - size  is the number of elements in the data array.
      - push the element at index i downward into the correct position. This will swap with the larger of the child nodes provided thatchild is larger. This stops when a leaf is reached, or neither child is larger. [ should be O(logn) ]
@@ -102,9 +105,13 @@ public class MyHeap{
 
 //We will discuss this today:
     public static void heapify(int[] yo){
-        for(int i = yo.length - (1 + (int)Math.pow(2,(int)(Math.log(yo.length)/Math.log(2)))); i > -1; i--){
+        int A = (int)(Math.pow(2,(int)(Math.log(yo.length)/Math.log(2))));
+        int a = (int)(Math.pow(2,(int)(Math.log(yo.length)/Math.log(2))))-1;
+        int b = A/2 - (int)(((yo.length-a)+1)/2) + (yo.length-a);
+        //System.out.println("b value" + b);
+        for(int i = b-1; i > -1; i--){
             pushDown(yo, yo.length, i);
-            System.out.println("XD");
+            //System.out.println("XD");
         }
     }
     //- convert the array into a valid heap. [ should be O(n) ]
@@ -115,7 +122,7 @@ public class MyHeap{
             int hold = yo[0];
             yo[0] = yo[i];
             yo[i] = hold;
-            BpushDown(yo, i, 0);
+            pushDown(yo, i, 0);
         }
     }
     //sort the array by converting it into a heap then removing the largest value n-1 times. [ should be O(nlogn) ]
